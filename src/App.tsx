@@ -1,7 +1,7 @@
 import { useState, useMemo, useCallback } from "react";
 import { fetchApiLeagues } from "./api";
 
-import "./app.css";
+import "./App.css";
 
 import useDebounce from "./hooks/useDebounce";
 import useFilterData from "./hooks/useFilterData";
