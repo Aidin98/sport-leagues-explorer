@@ -42,7 +42,7 @@ const LeagueCard = memo(({ league }: LeagueCardProps) => {
       className={twMerge(
         "group relative bg-white rounded-xl border border-gray-100",
         "shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer",
-        "overflow-hidden animate-fade-in h-full",
+        "overflow-hidden h-full",
 
         !isExpanded && "md:max-h-35 h-full",
         isExpanded

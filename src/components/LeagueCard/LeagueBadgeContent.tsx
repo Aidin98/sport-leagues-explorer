@@ -14,7 +14,7 @@ export default function LeagueBadgeContent({
   league,
 }: LeagueBadgeContentProps) {
   return (
-    <div className="p-5 animate-slide-up">
+    <div className="p-5">
       <div className="flex items-center justify-center min-h-40 bg-gray-50 border border-dashed border-gray-200 rounded-xl">
         {isBadgeLoading ? (
           <BadgeLoadingContent />

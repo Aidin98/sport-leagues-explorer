@@ -57,7 +57,7 @@ export const Dropdown = ({
       {open && (
         <div
           className="absolute left-0 right-0 mt-2 z-20 bg-white border border-gray-200 
-                     rounded-xl shadow-lg py-1 animate-fadeIn"
+                     rounded-xl shadow-lg py-1"
         >
           {options.map((opt) => {
             const active = opt.value === value;
