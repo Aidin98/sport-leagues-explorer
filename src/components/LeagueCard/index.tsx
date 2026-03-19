@@ -23,7 +23,12 @@ const LeagueCard = memo(({ league }: LeagueCardProps) => {
     data,
     loading: isBadgeLoading,
     refetch,
-  } = useFetchData([], () => fetchApiLeagueDetails(league.idLeague), false);
+  } = useFetchData(
+    [],
+    () => fetchApiLeagueDetails(league.idLeague),
+    false,
+    `badge-${league.idLeague}`,
+  );
 
   const onExpandLeague = (): void => {
     setIsExpanded((prev) => !prev);

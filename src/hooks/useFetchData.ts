@@ -1,26 +1,40 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import type { ApiError } from "../types";
 
+const cache = new Map<string, unknown>();
+
 const useFetchData = <T>(
   initialData: T,
   fetchDataFunction: () => Promise<T>,
   initialLoad: boolean = false,
+  cacheKey?: string,
 ) => {
   const fetchFnRef = useRef(fetchDataFunction);
   fetchFnRef.current = fetchDataFunction;
 
   const initialDataRef = useRef(initialData);
 
-  const [data, setData] = useState<T>(() => initialData);
+  const [data, setData] = useState<T>(() =>
+    cacheKey && cache.has(cacheKey) ? (cache.get(cacheKey) as T) : initialData,
+  );
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<ApiError | null>(null);
 
   const fetchData = useCallback(async () => {
+    if (cacheKey && cache.has(cacheKey)) {
+      setData(cache.get(cacheKey) as T);
+      return;
+    }
+
     try {
       setLoading(true);
       setError(null);
 
       const response = await fetchFnRef.current();
+
+      if (cacheKey) {
+        cache.set(cacheKey, response);
+      }
 
       setData(response);
     } catch (err) {
@@ -29,7 +43,7 @@ const useFetchData = <T>(
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [cacheKey]);
 
   useEffect(() => {
     if (initialLoad) {
